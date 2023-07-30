@@ -8,8 +8,10 @@ import morgan from 'morgan';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import kpiRoute from './routes/kpi.js'
+import productsRoutes from './routes/product.js'
+import Product from './models/Product.js'
 import KPI from './models/KPI.js'
-import {kpis} from './data/data.js'
+import {kpis,products} from './data/data.js'
 /** CONFIGURATIONS */
 dotenv.config({ path: fileURLToPath(new URL('./.env', import.meta.url)) });
 
@@ -24,6 +26,7 @@ app.use(cors());
 console.log('hello');
 //**ROUTES */
 app.use("/kpi",kpiRoute)
+app.use("/product",productsRoutes)
 
 /** MONGO SETUP */
 const PORT = process.env.PORT || 9000;
@@ -43,6 +46,7 @@ mongoose
       // await mongoose.connection.db.dropDatabase();
       // await KPI.insertMany(kpis);
       // console.log('Data inserted successfully.');
+      // await Product.insertMany(products);
     } catch (error) {
       console.error('Error inserting data into MongoDB:', error);
     }
