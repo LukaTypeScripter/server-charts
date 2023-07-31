@@ -8,10 +8,13 @@ import morgan from 'morgan';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import kpiRoute from './routes/kpi.js'
-import productsRoutes from './routes/product.js'
+import productRoutes from './routes/product.js'
+import transactionRoutes from './routes/transaction.js'
+import  Transaction  from './models/Transaction.js';
 import Product from './models/Product.js'
-import KPI from './models/KPI.js'
-import {kpis,products} from './data/data.js'
+import KPI from './models/KPI.js' 
+import {kpis,products,transactions} from './data/data.js'
+import { log } from 'console';
 /** CONFIGURATIONS */
 dotenv.config({ path: fileURLToPath(new URL('./.env', import.meta.url)) });
 
@@ -23,11 +26,10 @@ app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
-console.log('hello');
 //**ROUTES */
 app.use("/kpi",kpiRoute)
-app.use("/product",productsRoutes)
-
+app.use("/product", productRoutes);
+app.use("/transaction", transactionRoutes);
 /** MONGO SETUP */
 const PORT = process.env.PORT || 9000;
 
@@ -46,6 +48,7 @@ mongoose
       // await mongoose.connection.db.dropDatabase();
       // await KPI.insertMany(kpis);
       // console.log('Data inserted successfully.');
+      // await Transaction.insertMany(transactions);
       // await Product.insertMany(products);
     } catch (error) {
       console.error('Error inserting data into MongoDB:', error);

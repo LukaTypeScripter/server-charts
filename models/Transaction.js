@@ -9,9 +9,8 @@ loadType(mongoose)
 
 const TransactionSchema = new Schema({
         buyer:{
-            type:mongoose.Types.Currency,
-            currency:"USD",
-            get:(v) => v /100
+            type:"string",
+            required:true
         },
         amount:{
             type:mongoose.Types.Currency,
@@ -22,9 +21,6 @@ const TransactionSchema = new Schema({
             type:mongoose.Schema.Types.ObjectId,
             ref:"Product"
         }],
-       
-        monthlyData:[monthSchema],
-        dailyData:[daySchema]
 },
 {timestamps:true,toJSON:{getters:true}}
 )
